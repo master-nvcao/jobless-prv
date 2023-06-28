@@ -11,18 +11,14 @@ def create_app():
     app.config['SECRET_KEY'] = 'this_is_my_secret_key'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    
-
-
 
     db.init_app(app)
-
 
     from .views import views
     from .auth import auth 
 
     app.register_blueprint(views, url_prefix='/')
-    app.register_blueprint(auth, urlprefix='/')
+    app.register_blueprint(auth, url_prefix='/')
 
     from .models import Candidate, Recruiter, Offer, Application 
 
@@ -46,7 +42,7 @@ def create_app():
 
     from .extras import update_finished_offers, insert_Candidates, insert_Recruiters, insert_Offers
 
-    update_finished_offers(app=app, db=db)
+    #update_finished_offers(app=app, db=db)
 
     r = auth.root_path + '/static/resume'
     p = auth.root_path + '/static/images'

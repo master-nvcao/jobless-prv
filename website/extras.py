@@ -10,6 +10,7 @@ from flask import current_app
 import os 
 from datetime import date, datetime
 
+
 def sendMail(receiver, subject, message):
     sender_email = "pfaproject77@gmail.com"
     password = "ubwleaqyfgpzkdwi"
