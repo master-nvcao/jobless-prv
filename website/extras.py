@@ -4,7 +4,7 @@ from email.message import EmailMessage
 import secrets
 import string
 import uuid
-from .models import Offer, Candidate, Application, Recruiter
+from website.models import Offer, Candidate, Application, Recruiter
 from datetime import datetime, date
 from flask import current_app
 import os 
