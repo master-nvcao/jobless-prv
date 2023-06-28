@@ -1,6 +1,6 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 from website.extras import update_finished_offers
-from . import db, create_app
+from website import db, create_app
 
 
 
