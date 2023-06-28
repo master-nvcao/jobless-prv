@@ -1,0 +1,91 @@
+{% extends "index.html" %}
+
+{% block title %} Offer Profile {% endblock %}
+
+{% block active %}
+      <div class="collapse navbar-collapse" id="navbar-ex-3">
+        <div class="navbar-nav me-auto">
+          <a class="nav-item nav-link" href="/">Home</a>
+          <a class="nav-item nav-link" href="/contact">Contact</a>
+        </div>
+        {% endblock %}
+
+{% block content %}
+
+<div style="border : 1px solid #473198; width:100%;   background-color:#E3F3CD; padding : 30px;">
+    
+
+    <center>
+    <!-- <h3 style="color:#473198; top:5%;">Profile Details </h3><br> -->
+    
+    <div style="width:90%;">
+
+        <div class="card mb-4">
+            <h5 class="card-header"></h5>
+            <!-- Account -->
+            
+            
+            <div class="card-body">
+                
+                <center>
+                    
+                    <h3 style="color:#473198;">{{ offer.title }}</h3><br>
+                    <p><h5 style="color:#473198;">Description : </h5>{{ offer.description }} </p>
+                    <p ><h5 style="color:#473198;">Position :  </h5> {{ offer.position }} </p>
+                    <p><h5 style="color:#473198;">Salary : </h5> {{ offer.salary }}</p>
+                    <p><h5 style="color:#473198;">Date Creation : </h5> {{ offer.dateCreation }}</p>
+                    <p><h5 style="color:#473198;">Date Of Expiration : </h5> {{ offer.dateEnd }}</p>
+                    <p><h5 style="color:#473198;">Speciality : </h5>{{ offer.speciality }}</p>
+                    <p><h5 style="color:#473198;">Region : </h5> {{ offer.region }}</p>
+                    <p><h5 style="color:#473198;">Recruiter : </h5> {{ offer.recruiter.first_name + "  " + offer.recruiter.last_name }}</p>
+                    <p><h5 style="color:#473198;">Category : </h5> {{ offer.category }}</p>
+                    <p><h5 style="color:#473198;">Company Name : </h5> {{ offer.recruiter.company }}</p>
+                    <p><h5 style="color:#473198;">Company Logo : </h5> <img src="{{ url_for('views.serve_picture', filename=offer.recruiter.picture ) }}" height="80px" width="80px" alt="company_logo" /></p>
+                    <br><br>
+                    <br>
+
+                    
+
+                    
+
+                        
+                    </div>
+                    
+                    </div>
+                    <br><br>
+                </center>
+                
+              
+            </div>
+
+            <!-- /Account -->
+          </div>
+          
+
+          
+
+
+          </div>
+
+      
+    </center>
+
+
+</div>
+
+
+<div class="buy-now">
+
+    
+    
+    <a href="/register" class="btn btn-danger btn-contact-now" >Apply</a>
+
+    <a href="/register"class="btn btn-danger btn-resume-now"> Contact Recruiter </a>
+
+
+    
+
+</div>
+
+
+{% endblock %}

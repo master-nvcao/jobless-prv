@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<!-- =========================================================
+* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
+==============================================================
+
+* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
+* Created by: ThemeSelection
+* License: You must have a valid license purchased in order to legally use the theme for your project.
+* Copyright ThemeSelection (https://themeselection.com)
+
+=========================================================
+ -->
+<!-- beautify ignore:start -->
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  dataassets-path="{{ url_for('static' , filename='assets/') }}"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>{% block title %} Home {% endblock %} </title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <!-- <link rel="icon" type="image/x-icon" href="assets/img/favicon/favicon.ico" /> -->
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/vendor/fonts/boxicons.css') }}" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/css/demo.css') }}" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/vendor/libs/apex-charts/apex-charts.css') }}" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="{{ url_for('static' , filename='assets/vendor/js/helpers.js') }}"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="{{ url_for('static' , filename='assets/js/config.js') }}"></script>
+
+    <style>
+        
+    </style>
+
+  </head>
+
+  
+  <nav class="navbar navbar-example navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/" style="font-size:25px;"> Jobless </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbar-ex-3"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      {% block active %}
+      <div class="collapse navbar-collapse" id="navbar-ex-3">
+        <div class="navbar-nav me-auto">
+          <a class="nav-item nav-link active" href="/">Home</a>
+          <a class="nav-item nav-link" href="/contact">Contact</a>
+      </div>
+      {% endblock %}
+
+            <a class="btn btn-outline-primary" href="/register">Sign Up</a>
+            <div style="width:8px;"></div>
+            <a class="btn btn-outline-primary" href="/login">Log In</a>
+            
+          
+        
+      </div>
+    </div>
+  </nav>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+            
+        {% if messages %}
+                
+            {% for category, message in messages %}
+                
+                {% if category == 'success' %}
+                    <div role="alert" class="alert alert-success alert-dismissible" style="margin-bottom:0px;">{{ message }}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
+                {% elif category == 'error' %}
+                    <div role="alert" class="alert alert-danger alert-dismissible" style="margin-bottom:0px;">{{ message }} <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
+                {% endif %}
+                <!-- <script>alert('{{message}}')</script> -->
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+  {% block content %}
+  <div style="border : 1px solid #473198; width:100%; min-height:450px; background-color:#81D9D5; padding : 30px;">
+    <center>
+
+        <h5 style="color:#473198;">Find Job, Employment, and Career Opportunities</h3><br>
+        <h1 style="color:#473198;">The Eassiest Way to Get Your New Job</h1><br>
+        <div class="divider divider-primary">
+            <div class="divider-text" style="font-size:18px; color:#473198">Search for a job </div>
+        </div>
+        <br>
+        <form method="post">
+        
+          <div style="margin:10px; padding: 30px;">
+
+            {% if company is none and region is none and category is none and position is none %}
+            <div class="input-group">
+                <input type="text" name="position"  placeholder="Search for your position " style="width:20%; border: 0px solid white;">
+
+                <select class="form-select" id="inputGroupSelect04" aria-label="example select " name="category"> 
+                    <option>Select your Category</option>
+                    <option value="Full Time">Full Time</option>
+                    <option value="Part Time">Part Time</option>
+                    <option value="Internship">Internship</option>
+                    <option value="Freelance">Freelance</option>
+                </select>
+
+                <select class="form-select" id="inputGroupSelect04" aria-label="example select" name="company"> 
+                    <option>Select your Company</option>
+                    {% for c in companies %}
+                        <option>{{ c[0]}}</option>
+                    {% endfor %}
+                    
+                </select>
+
+                <select class="form-select" id="inputGroupSelect04" aria-label="example select " name="region"> 
+                    <option>Select your Region</option>
+                    {% for r in regions %}
+                        <option>{{ r[0] }}</option>
+                    {% endfor %}
+                </select>
+
+                <button class="btn btn-outline-primary" type="submit" style="color:#0A2463; font-size:18px;">Search</button>
+            </div>
+
+            {% else %}
+
+            <div class="input-group">
+                <input type="text"  placeholder="Search for your position " name="position" value="{{ position }}" style="width:20%; border: 0px solid white;">
+
+                <select class="form-select" id="inputGroupSelect04" aria-label="example select " name="category"> 
+                    <option>Select your Category</option>
+                    <option value="Full Time" {% if category == 'Full Time' %} selected {% endif %} >Full Time</option>
+                    <option value="Part Time" {% if category == 'Part Time' %} selected {% endif %}>Part Time</option>
+                    <option value="Internship" {% if category == 'Internship' %} selected {% endif %}>Internship</option>
+                    <option value="Freelance" {% if category == 'Freelance' %} selected {% endif %}>Freelance</option>
+                </select>
+
+                <select class="form-select" id="inputGroupSelect04" aria-label="example select" name="company"> 
+                    <option>Select your Company</option>
+                    {% for c in companies %}
+                        {% if c[0] == company %}
+                            <option value="{{ c[0] }}" selected>{{ c[0] }}</option>
+                        {% else %}
+                            <option value="{{ c[0] }}">{{ c[0]}}</option>
+                        {% endif %}
+                    {% endfor %}
+                    
+                </select>
+
+                <select class="form-select" id="inputGroupSelect04" aria-label="example select " name="region"> 
+                    <option>Select your Region </option>
+                    {% for r in regions %}
+                        {% if r[0] == region %}
+                            <option value="{{ r[0] }}" selected>{{ r[0] }}</option>
+                        {% else %}
+                            <option value="{{ r[0] }}">{{ r[0] }}</option>
+                        {% endif %}
+
+                    {% endfor %}
+                </select>
+
+                <button class="btn btn-outline-primary" type="submit" style="color:#0A2463; font-size:18px;">Search</button>
+            </div>
+
+            {% endif  %}
+
+        </div>
+          
+        </form>
+  
+    </center>
+  </div>
+
+  <div style="border : 1px solid #473198; width:100%; min-height:900px; background-color:#E3F3CD; padding : 40px;">
+    <center>
+      {% if company is none and region is none and category is none and position is none %}
+      <h5 style="color:#473198">RECENTLY ADDED JOBS</h5>
+      <h2 style="color:#473198">Featured Jobs Posts For This Week</h2>
+      {% else %}
+      <h2 style="color:#473198">HERE ARE YOUR RESULTS:</h2>
+      {% endif %}
+
+    <div style="margin:10px; padding: 30px; width:90%; min-height:650px;">
+
+
+      <div class="row mb-5">
+
+        {% for offer in offers  %}
+        
+        <div class="col-md-6 col-lg-3 mb-2">
+              <div class="card h-100">
+                <img class="card-img-top" src="{{ url_for('views.serve_picture', filename=offer.recruiter.picture ) }}" height="170px" alt="Card image cap" />
+                <div class="card-body">
+                  <h5 class="card-title">{{ offer.title }}</h5>
+                  <p class="card-text">
+                    {{ offer.description }}
+                  </p>
+                  <p class="card-text">
+                    {{ offer.region }}
+                  </p>
+                  <a href="/visitor-offer-profile/{{ offer.id }}" class="btn btn-outline-success">Read More</a>
+                  <a href="/register" class="btn btn-outline-info">Apply</a>
+
+                </div>
+              </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>   
+
+    </div>
+
+
+    </center>
+  </div>
+
+  {% endblock %}
+
+  <footer class="footer bg-light">
+    <div class="container-fluid d-flex flex-md-row flex-column justify-content-between align-items-md-center gap-1 container-p-x py-3">
+      <div>
+        <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/landing/" target="_blank" class="footer-text fw-bolder">Jobless</a>
+        ©
+      </div>
+      <div>
+        <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
+        <a href="javascript:void(0)" class="footer-link me-4">Help</a>
+        <a href="javascript:void(0)" class="footer-link me-4">Contact</a>
+        <a href="javascript:void(0)" class="footer-link">Terms &amp; Conditions</a>
+      </div>
+    </div>
+  </footer>
+
+
+
+
+
+
+<!-- Core JS -->
+    <!-- build:jsassets/vendor/js/core.js -->
+    <script src="{{ url_for('static' , filename='assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="{{ url_for('static' , filename='assets/vendor/libs/popper/popper.js') }}"></script>
+    <script src="{{ url_for('static' , filename='assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ url_for('static' , filename='assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+
+    <script src="{{ url_for('static' , filename='assets/vendor/js/menu.js') }}"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="{{ url_for('static' , filename='assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+
+    <!-- Main JS -->
+    <script src="{{ url_for('static' , filename='assets/js/main.js') }}"></script>
+
+    <!-- Page JS -->
+    <script src="{{ url_for('static' , filename='assets/js/dashboards-analytics.js') }}"></script>
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="{{ url_for('static' , filename='https://buttons.github.io/buttons.js') }}"></script>
+  </body>
+</html>

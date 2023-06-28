@@ -1,0 +1,301 @@
+{% extends "home_candidate.html" %}
+
+
+{% block head %}
+
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  dataassets-path="{{ url_for('static' , filename='assets/') }}"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>Profile </title>
+
+    <meta name="description" content="" />
+
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/vendor/fonts/boxicons.css') }}" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/css/demo.css') }}" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/vendor/libs/apex-charts/apex-charts.css') }}" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="{{ url_for('static' , filename='assets/vendor/js/helpers.js') }}"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="{{ url_for('static' , filename='assets/js/config.js') }}"></script>
+
+    <style>
+        
+    </style>
+
+  </head>
+
+{% endblock %}
+
+
+{% block active %}
+      <div class="collapse navbar-collapse" id="navbar-ex-3">
+        <div class="navbar-nav me-auto">
+          <a class="nav-item nav-link" href="/home">Home</a>
+          <a class="nav-item nav-link " href="/applications-history">My Applications History</a>
+          <a class="nav-item nav-link active" href="/browse-offers">Browse Offers</a>
+        </div>
+{% endblock  %}
+
+{% block content  %}
+
+<div style="border : 1px solid #473198; width:100%; height:auto; min-height:900px;  background-color:#E3F3CD; padding : 30px;">
+    
+
+    <center>
+    <h3 style="color:#473198; top:5%;">Profile Details </h3><br>
+    
+    <div style="width:90%;">
+
+        <div class="card mb-4">
+            <h5 class="card-header"></h5>
+            <!-- Account -->
+            <form method="post" enctype="multipart/form-data">
+            <div class="card-body">
+              <div class="d-flex align-items-start align-items-sm-center gap-4">
+                <input type="hidden" name="id" value="{{ user.id }}" />
+                <img
+                  src="{{ url_for('views.serve_picture', filename=user.picture ) }}"
+                  alt="user-avatar"
+                  class="d-block rounded"
+                  height="100"
+                  width="100"
+                  id="uploadedAvatar"
+                />
+                <div class="button-wrapper">
+                  <label for="picture" class="btn btn-primary me-2 mb-4" tabindex="0">
+                    <span class="d-none d-sm-block">Upload new photo</span>
+                    <i class="bx bx-upload d-block d-sm-none"></i>
+                    <input
+                      type="file"
+                      id="picture"
+                      name="picture"
+                      class="account-file-input"
+                      hidden
+                      accept="image/*"
+                    />
+                  </label>
+                  
+
+                  <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                </div>
+              </div>
+            </div>
+
+            <hr class="my-0" />
+            <div class="card-body">
+              
+                <div class="row">
+                  <div class="mb-3 col-md-6">
+                    <label for="first_name" class="form-label">First Name</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      id="first_name"
+                      name="first_name"
+                      value="{{ user.first_name.capitalize() }}"
+                      placeholder="{{ user.first_name.capitalize() }}"
+                      
+                    />
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label for="last_name" class="form-label">Last Name</label>
+                    <input class="form-control" type="text" name="last_name" id="last_name" value="{{ user.last_name.capitalize() }}" placeholder="{{ user.last_name.capitalize() }}"/>
+                  </div>
+
+
+                  <div class="mb-3 col-md-6">
+                    <label for="email" class="form-label">E-mail</label>
+                    <input
+                      class="form-control"
+                      type="email"
+                      id="email"
+                      name="email"
+                      value="{{ user.email }}"
+                      placeholder="{{ user.email }}"
+                    />
+                  </div>
+
+                  <div class="mb-3 col-md-6">
+                    <label for="password" class="form-label">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      name="password"
+                      value="{{ user.password }}"
+                    />
+                  </div>
+
+                  <div class="mb-3 col-md-6">
+                    <label for="address" class="form-label">ADDRESS</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      id="address"
+                      name="address"
+                      value="{{ user.address.capitalize() }}"
+                      placeholder="{{ user.address.capitalize() }}"
+                    />
+                  </div>
+
+
+
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label" for="phone">Phone Number</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                        type="text"
+                        id="phone"
+                        name="phone"
+                        class="form-control"
+                        value="{{ user.phone }}"
+                        placeholder="{{ user.phone }}"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="mb-3 col-md-6">
+                    <label for="diploma" class="form-label">DIPLOMA</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      id="diploma"
+                      name="diploma"
+                      value="{{ user.diploma.capitalize() }}"
+                      placeholder="{{ user.diploma.capitalize() }}"
+                    />
+                  </div>
+
+
+
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label" for="speciality">Speciality</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                        type="text"
+                        id="speciality"
+                        name="speciality"
+                        class="form-control"
+                        value="{{ user.speciality.capitalize() }}"
+                        placeholder="{{ user.speciality.capitalize() }}"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="mb-3 col-md-12">
+                    <label class="form-label" for="resume">Resume</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                        type="file"
+                        id="resume"
+                        name="resume"
+                        class="form-control"
+                        value="{{ user.resume }}"
+                        accept=".pdf"
+                      />
+                    </div>
+                  </div>
+
+                  
+                  
+                </div>
+
+
+                <div class="mt-2">
+                  <button type="submit" class="btn btn-primary me-2">Save changes</button>
+                  
+                </div>
+            </div>
+          </form>
+
+            <!-- /Account -->
+          </div>
+
+          <form method="post" action="/deactivate-candidate">
+          <div class="card">
+            <input type="hidden" name="id" value="{{ user.id }}" />
+            <h5 class="card-header">Delete Account</h5>
+            <div class="card-body">
+              <div class="mb-3 col-12 mb-0">
+                <div class="alert alert-warning">
+                  <h6 class="alert-heading fw-bold mb-1">Are you sure you want to delete your account?</h6>
+                  <p class="mb-0">Once you delete your account, there is no going back. Please be certain.</p>
+                </div>
+              </div>
+                
+                <button type="submit" class="btn btn-danger deactivate-account">Deactivate Account</button>
+              
+            </div>
+          </div>
+          </form>
+
+          </div>
+
+      
+    </center>
+
+
+</div>
+
+{% endblock %}
+
+{% block lasts %} 
+
+<!-- Core JS -->
+    <!-- build:jsassets/vendor/js/core.js -->
+    <script src="{{ url_for('static' , filename='assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="{{ url_for('static' , filename='assets/vendor/libs/popper/popper.js') }}"></script>
+    <script src="{{ url_for('static' , filename='assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ url_for('static' , filename='assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+
+    <script src="{{ url_for('static' , filename='assets/vendor/js/menu.js') }}"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="{{ url_for('static' , filename='assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+
+    <!-- Main JS -->
+    <script src="{{ url_for('static' , filename='assets/js/main.js') }}"></script>
+
+    <!-- Page JS -->
+    <script src="{{ url_for('static' , filename='assets/js/dashboards-analytics.js') }}"></script>
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+{% endblock %}

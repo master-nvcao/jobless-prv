@@ -1,0 +1,194 @@
+{% extends "home_candidate.html" %}
+
+{% block title %} Offer Profile {% endblock %}
+
+{% block active %}
+      <div class="collapse navbar-collapse" id="navbar-ex-3">
+        <div class="navbar-nav me-auto">
+          <a class="nav-item nav-link" href="/home">Home</a>
+          <a class="nav-item nav-link " href="/applications-history">My Applications History</a>
+          <a class="nav-item nav-link" href="/browse-offers">Browse Offers</a>
+        </div>
+{% endblock  %}
+
+{% block content %}
+
+<div style="border : 1px solid #473198; width:100%;   background-color:#E3F3CD; padding : 30px;">
+    
+
+    <center>
+    <!-- <h3 style="color:#473198; top:5%;">Profile Details </h3><br> -->
+    
+    <div style="width:90%;">
+
+        <div class="card mb-4">
+            <h5 class="card-header"></h5>
+            <!-- Account -->
+            
+            
+            <div class="card-body">
+                
+                <center>
+                    
+                    <h3 style="color:#473198;">{{ application.offer.title }}</h3><br>
+                    <p><h5 style="color:#473198;">Description : </h5>{{ application.offer.description }} </p>
+                    <p ><h5 style="color:#473198;">Position :  </h5> {{ application.offer.position }} </p>
+                    <p><h5 style="color:#473198;">Salary : </h5> {{ application.offer.salary }}</p>
+                    <p><h5 style="color:#473198;">Date Creation : </h5> {{ application.offer.dateCreation }}</p>
+                    <p><h5 style="color:#473198;">Date Of Expiration : </h5> {{ application.offer.dateEnd }}</p>
+                    <p><h5 style="color:#473198;">Speciality : </h5>{{ application.offer.speciality }}</p>
+                    <p><h5 style="color:#473198;">Region : </h5> {{ application.offer.region }}</p>
+                    <p><h5 style="color:#473198;">Recruiter : </h5> {{ application.offer.recruiter.first_name + "  " + application.offer.recruiter.last_name }}</p>
+                    <p><h5 style="color:#473198;">Category : </h5> {{ application.offer.category }}</p>
+                    <p><h5 style="color:#473198;">Company Name : </h5> {{ application.offer.recruiter.company }}</p>
+                    <p><h5 style="color:#473198;">Company Logo : </h5> <img src="{{ url_for('views.serve_picture', filename=application.offer.recruiter.picture ) }}" height="80px" width="80px" alt="company_logo" /></p>
+                    <br><br>
+                    <br>
+
+                    
+
+                    
+
+                        
+                    </div>
+                    
+                    </div>
+                    <br><br>
+                </center>
+                
+              
+            </div>
+
+            <!-- /Account -->
+          </div>
+          
+
+          
+
+
+          </div>
+
+      
+    </center>
+
+
+</div>
+
+
+<div class="buy-now">
+
+    {% if checker == False  %}
+    
+    <a href="/apply-offer/{{ application.offer.id }}" class="btn btn-danger btn-contact-now" >Apply</a>
+
+    {% else  %}
+        {% if application.status == 'Pending' %}
+            <a href="/cancel-application/{{ application.offer.id }}" class="btn btn-danger btn-contact-now" >Cancel Application </a>
+        {% endif %}
+
+    {% endif  %}
+    <a
+    href="#"
+    target="_blank"
+    class="btn btn-danger btn-resume-now"
+    data-bs-toggle="modal" data-bs-target="#contact-candidate"
+    >Contact Recruiter</a>
+
+  <form method="post">
+  <div class="modal fade" id="contact-candidate" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel1">Contact Recruiter</h4>
+          
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <div class="card-body" >
+
+                  <div class="mb-3 col-md-12">
+
+                      <label class="form-label">From</label>
+                      <div class="input-group input-group-merge">
+
+                          <input
+                          type="text"
+                          class="form-control"
+                          id="sender"
+                          name="sender"
+                          value="{{ user.email }}"
+                          readonly
+                        />
+                      </div>
+                  </div>
+
+                  <div class="mb-3 col-md-12">
+
+                      <label class="form-label">To</label>
+                      <div class="input-group input-group-merge">
+
+                          <input
+                          type="text"
+                          class="form-control"
+                          id="receiver"
+                          name="receiver"
+                          value="{{ application.offer.recruiter.email }}"
+                          readonly
+                        />
+                      </div>
+                    </div>
+
+                  <div class="mb-3 col-md-12">
+
+                    <label class="form-label">Message</label>
+                    <div class="input-group input-group-merge">
+
+                      <textarea class="form-control" name="message" rows="5" ></textarea>
+                    </div>
+                  </div>
+
+                  
+                  
+
+                </div>
+            
+
+
+
+            </div>
+
+
+
+        
+
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+
+      </div>
+
+    </div>
+    </div>
+
+  </form>
+
+
+    
+
+  </div>
+
+
+{% endblock %}

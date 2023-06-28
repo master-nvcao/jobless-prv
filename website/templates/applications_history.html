@@ -1,0 +1,164 @@
+{% extends "home_candidate.html" %}
+
+{% block title %} Applications History {% endblock %}
+
+{% block active %}
+      <div class="collapse navbar-collapse" id="navbar-ex-3">
+        <div class="navbar-nav me-auto">
+          <a class="nav-item nav-link" href="/home">Home</a>
+          <a class="nav-item nav-link active" href="/applications-history">My Applications History</a>
+          <a class="nav-item nav-link " href="/browse-offers">Browse Offers</a>
+        </div>
+{% endblock  %}
+
+{% block content %}
+
+<div style="border : 1px solid #473198; width:100%; min-height:650px; background-color:#E3F3CD; padding : 30px;">
+    
+
+        
+    <h3 style="color:#473198; top:5%;">Applications History </h3><br>
+    <center>
+    <div style="width:100%; height:450px;">
+
+        <div class="container-xxl flex-grow-1 container-p-y">
+            
+
+            <!-- Basic Bootstrap Table -->
+            <div class="card">
+              <div class="table-responsive text-nowrap">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Recruiter</th>
+                      <th>Application Date</th>
+                      <th>Date Of Expiration</th>
+                      <th>Number of Appliers</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-border-bottom-0">
+
+
+                    {% for app in apps  %}
+                        {% if app.status == 'Canceled' %}
+                        <tr>
+                        <td>
+                            <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>{{ app.offer.title }}</strong>
+                        </td>
+
+                        <td>{{ app.recruiter.first_name + "  "+ app.recruiter.last_name }}</td>
+
+                        <td>
+                            {{ app.dateApply }}
+                        </td>
+
+                        <td>
+                            {{ app.offer.dateEnd }}
+                        </td>
+
+                        <td style="text-align:center;"> {{ app.appliers }}</td>
+
+                        
+                            <td><span class="badge bg-label-secondary me-1">Canceled</span></td>
+                        
+                        <td>
+                            <a href="/candidate-offer-profile/{{ app.offer.id }}" class="btn rounded-pill btn-outline-success">View</a>
+                        </td>
+
+                        </tr>
+
+                        {% elif app.status == 'Accepted' %}
+
+                            <tr>
+                                <td>
+                                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>{{ app.offer.title }}</strong>
+                                </td>
+        
+                                <td>{{ app.offer.recruiter.first_name + "  "+ app.offer.recruiter.last_name }}</td>
+        
+                                <td>
+                                    {{ app.dateApply }}
+                                </td>
+        
+                                <td>
+                                    {{ app.offer.dateEnd }}
+                                </td>
+        
+                                <td style="text-align:center;"> {{ app.appliers }}</td>
+        
+                                
+                                
+                                    <td><span class="badge bg-label-info me-1">Accepted</span></td>
+                                
+                                <td>
+                                    <a href="/candidate-offer-profile/{{ app.offer.id }}" class="btn rounded-pill btn-outline-success">View</a>
+                                </td>
+    
+                            </tr>
+
+                        {% elif app.status == 'Refused' %}
+
+                        <tr>
+                            <td>
+                                <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>{{ app.offer.title }}</strong>
+                            </td>
+    
+                            <td>{{ app.offer.recruiter.first_name + "  "+ app.offer.recruiter.last_name }}</td>
+    
+                            <td>
+                                {{ app.dateApply }}
+                            </td>
+    
+                            <td>
+                                {{ app.offer.dateEnd }}
+                            </td>
+    
+                            <td style="text-align:center;"> {{ app.appliers }}</td>
+    
+                            
+                            
+                                <td><span class="badge bg-label-danger me-1">Refused</span></td>
+                            
+                            <td>
+                                <a href="/candidate-offer-profile/{{ app.offer.id }}" class="btn rounded-pill btn-outline-success">View</a>
+                            </td>
+
+                        </tr>
+
+                        {% endif  %}
+
+
+                    {% endfor %}
+
+
+
+
+                    
+
+
+
+
+
+                  </tbody>
+
+
+                </table>
+
+
+              </div>
+
+              </div>
+
+              </div>
+
+    </div>
+    </center>
+
+
+</div>
+
+{% endblock %}
+

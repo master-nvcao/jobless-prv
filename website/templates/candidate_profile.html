@@ -1,0 +1,283 @@
+{% extends "home_recruiter.html" %}
+
+{% block head %}
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  dataassets-path="{{ url_for('static' , filename='assets/') }}"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>Candidate </title>
+
+    <meta name="description" content="" />
+
+   
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/vendor/fonts/boxicons.css') }}" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/css/demo.css') }}" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/vendor/libs/apex-charts/apex-charts.css') }}" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="{{ url_for('static' , filename='assets/vendor/js/helpers.js') }}"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="{{ url_for('static' , filename='assets/js/config.js') }}"></script>
+
+    <style>
+        
+    </style>
+
+  </head>
+  
+{% endblock %}
+
+{% block active %}
+      <div class="collapse navbar-collapse" id="navbar-ex-3">
+        <div class="navbar-nav me-auto">
+          <a class="nav-item nav-link" href="/home">Home</a>
+            <a class="nav-item nav-link " href="/add-offer">Add Offer </a>
+            <a class="nav-item nav-link" href="/offers-history">My Offers History</a>
+            <a class="nav-item nav-link" href="/accept-refuse-offers">A/R Application</a>
+        </div>
+{% endblock %}
+
+
+
+{% block content  %}
+
+<div style="border : 1px solid #473198; width:100%;   background-color:#E3F3CD; padding : 30px;">
+    
+
+  <center>
+  <!-- <h3 style="color:#473198; top:5%;">Profile Details </h3><br> -->
+  
+  <div style="width:90%;">
+
+      <div class="card mb-4">
+          <h5 class="card-header"></h5>
+          <!-- Account -->
+          
+          
+          <div class="card-body">
+              
+              <center>
+
+                  <img src="{{ url_for('views.serve_picture', filename=candidate.picture ) }}" height="200px" width="200px" /><br><br>
+                  
+                  <!-- <h3 style="color:#473198;">Searching for a full stack developer</h3><br> -->
+                  <p><h4 style="color:#473198;">Full Name : </h4>{{ candidate.last_name + " "+ candidate.first_name }}</p>
+                  <p ><h4 style="color:#473198;">Email :  </h4> {{ candidate.email }} </p>
+                  <p><h4 style="color:#473198;">Address : </h4> {{ candidate.address }}</p>
+                  <p><h4 style="color:#473198;"> Phone : </h4> {{ candidate.phone }}</p>
+                  <p><h4 style="color:#473198;">Speciality : </h4> {{ candidate.speciality }}</p>
+                  <p><h4 style="color:#473198;">Diploma : </h4> {{ candidate.diploma }}</p>
+                  <br>
+                  
+
+                  
+
+                  
+                  <br><br>
+              </center>
+              
+            
+          </div>
+
+          <!-- /Account -->
+        </div>
+        
+
+        
+
+
+        </div>
+
+    
+  </center>
+
+
+</div>
+
+
+
+
+<div class="buy-now">
+  <a
+    href="#"
+    target="_blank"
+    class="btn btn-danger btn-resume-now"
+    data-bs-toggle="modal" data-bs-target="#contact-candidate"
+    >Contact Candidate</a
+  >
+
+  <form method="post">
+  <div class="modal fade" id="contact-candidate" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel1">Contact Candidate</h4>
+          
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <div class="card-body" >
+
+                  <div class="mb-3 col-md-12">
+
+                      <label class="form-label">From</label>
+                      <div class="input-group input-group-merge">
+
+                          <input
+                          type="text"
+                          class="form-control"
+                          id="sender"
+                          name="sender"
+                          value="{{ user.email }}"
+                          readonly
+                        />
+                      </div>
+                  </div>
+
+                  <div class="mb-3 col-md-12">
+
+                      <label class="form-label">To</label>
+                      <div class="input-group input-group-merge">
+
+                          <input
+                          type="text"
+                          class="form-control"
+                          id="receiver"
+                          name="receiver"
+                          value="{{ candidate.email }}"
+                          readonly
+                        />
+                      </div>
+                    </div>
+
+                  <div class="mb-3 col-md-12">
+
+                    <label class="form-label">Message</label>
+                    <div class="input-group input-group-merge">
+
+                      <textarea class="form-control" name="message" rows="5" ></textarea>
+                    </div>
+                  </div>
+
+                  
+                  
+
+                </div>
+            
+
+
+
+            </div>
+
+
+
+        
+
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+
+      </div>
+
+    </div>
+    </div>
+
+  </form>
+
+
+  <a
+    href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/"
+    target="_blank"
+    class="btn btn-danger btn-contact-now"
+    data-bs-toggle="modal" data-bs-target="#show-resume"
+    >Show Resume</a
+  >
+
+         
+  <div class="modal fade" id="show-resume" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel1">Candidate Resume</h5>
+            
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+
+          </div>
+
+          <div class="modal-body">
+              
+
+              <iframe src="{{ url_for('views.serve_resume', filename=candidate.resume ) }}" height="550" width="100%" title="Resume" ></iframe>
+
+
+
+          </div>
+
+
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              Close
+            </button>
+            
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  
+  
+</div>
+
+{% endblock %}

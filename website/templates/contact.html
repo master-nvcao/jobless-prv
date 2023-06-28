@@ -1,0 +1,78 @@
+{% extends "index.html" %}
+
+{% block title %} Contact {% endblock %}
+
+{% block active %}
+      <div class="collapse navbar-collapse" id="navbar-ex-3">
+        <div class="navbar-nav me-auto">
+          <a class="nav-item nav-link" href="/">Home</a>
+          <a class="nav-item nav-link active" href="/contact">Contact</a>
+        </div>
+{% endblock %}
+
+{% block content %}
+
+<div style="border : 1px solid #473198; width:100%; min-height:600px; background-color:#81D9D5; padding : 30px; padding-top:0px;">
+    <center>
+        <br>
+        <div style="margin:0px; padding: 30px">
+
+            <div class="card mb-4">
+            
+                <h3 class="card-header" style="color:#473198;">Contact US</h3><br>
+
+                <div class="card-body">
+                    <form method="post">
+                    <div class="mb-3 col-md-12">
+
+                        <label class="form-label">Full Name </label>
+                        <div class="input-group input-group-merge">
+  
+                            <input
+                            type="text"
+                            class="form-control"
+                            id="organization"
+                            name="full_name"
+                            required
+                          />
+                        </div>
+                    </div>
+
+                    <div class="mb-3 col-md-12">
+
+                        <label class="form-label">Email</label>
+                        <div class="input-group input-group-merge">
+  
+                            <input
+                            type="email"
+                            class="form-control"
+                            id="organization"
+                            name="email"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                    <div class="mb-3 col-md-12">
+
+                      <label class="form-label">Message</label>
+                      <div class="input-group input-group-merge">
+
+                        <textarea class="form-control" name="message" rows="5" required></textarea>
+                      </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Send</button>
+
+                    </form>
+
+                    
+                </div>
+                
+            </div>
+            
+        </div>
+    </center>
+  </div>
+
+{% endblock  %}

@@ -1,0 +1,164 @@
+{% extends "home_candidate.html" %}
+
+{% block title %} Applications History {% endblock %}
+
+{% block active %}
+      <div class="collapse navbar-collapse" id="navbar-ex-3">
+        <div class="navbar-nav me-auto">
+          <a class="nav-item nav-link" href="/home">Home</a>
+          <a class="nav-item nav-link " href="/applications-history">My Applications History</a>
+          <a class="nav-item nav-link active" href="/browse-offers">Browse Offers</a>
+        </div>
+{% endblock  %}
+
+{% block content %}
+
+<div style="border : 1px solid #0A2463; width:100%; min-height:30rem; background-color:#E2E2E2; padding : 30px; padding-bottom:0;">
+    
+
+        
+    <h3 style="color:#0A2463; top:5%;">Browse Offers </h3><br>
+    <center>
+
+            <h3 style="color:#0A2463;">Find Job, Employment, and Career Opportunities That Fits You </h3><br>
+            <div class="divider divider-primary">
+                <div class="divider-text" style="font-size:18px; color:#0A2463">Search for a job </div>
+            </div>
+
+            <br>
+            <form method="post">
+
+            <div style="margin:10px; padding: 30px;">
+
+                {% if company is none and region is none and category is none and position is none %}
+                <div class="input-group">
+                    <input type="text" name="position"  placeholder="Search for your position " style="width:20%; border: 0px solid white;">
+
+                    <select class="form-select" id="inputGroupSelect04" aria-label="example select " name="category"> 
+                        <option>Select your Category</option>
+                        <option value="Full Time">Full Time</option>
+                        <option value="Part Time">Part Time</option>
+                        <option value="Internship">Internship</option>
+                        <option value="Freelance">Freelance</option>
+                    </select>
+
+                    <select class="form-select" id="inputGroupSelect04" aria-label="example select" name="company"> 
+                        <option>Select your Company</option>
+                        {% for c in companies %}
+                            <option>{{ c[0]}}</option>
+                        {% endfor %}
+                        
+                    </select>
+
+                    <select class="form-select" id="inputGroupSelect04" aria-label="example select " name="region"> 
+                        <option>Select your Region</option>
+                        {% for r in regions %}
+                            <option>{{ r[0] }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <button class="btn btn-outline-primary" type="submit" style="color:#0A2463; font-size:18px;">Search</button>
+                </div>
+
+                {% else %}
+
+                <div class="input-group">
+                    <input type="text"  placeholder="Search for your position " name="position" value="{{ position }}" style="width:20%; border: 0px solid white;">
+
+                    <select class="form-select" id="inputGroupSelect04" aria-label="example select " name="category"> 
+                        <option>Select your Category</option>
+                        <option value="Full Time" {% if category == 'Full Time' %} selected {% endif %} >Full Time</option>
+                        <option value="Part Time" {% if category == 'Part Time' %} selected {% endif %}>Part Time</option>
+                        <option value="Internship" {% if category == 'Internship' %} selected {% endif %}>Internship</option>
+                        <option value="Freelance" {% if category == 'Freelance' %} selected {% endif %}>Freelance</option>
+                    </select>
+
+                    <select class="form-select" id="inputGroupSelect04" aria-label="example select" name="company"> 
+                        <option>Select your Company</option>
+                        {% for c in companies %}
+                            {% if c[0] == company %}
+                                <option value="{{ c[0] }}" selected>{{ c[0] }}</option>
+                            {% else %}
+                                <option value="{{ c[0] }}">{{ c[0]}}</option>
+                            {% endif %}
+                        {% endfor %}
+                        
+                    </select>
+
+                    <select class="form-select" id="inputGroupSelect04" aria-label="example select " name="region"> 
+                        <option>Select your Region </option>
+                        {% for r in regions %}
+                            {% if r[0] == region %}
+                                <option value="{{ r[0] }}" selected>{{ r[0] }}</option>
+                            {% else %}
+                                <option value="{{ r[0] }}">{{ r[0] }}</option>
+                            {% endif %}
+
+                        {% endfor %}
+                    </select>
+
+                    <button class="btn btn-outline-primary" type="submit" style="color:#0A2463; font-size:18px;">Search</button>
+                </div>
+
+                {% endif  %}
+
+            </div>
+
+
+            </form>
+
+                    
+    </center>
+
+
+</div>
+
+<div style="border : 1px solid #473198; width:100%;   background-color:#E3F3CD; padding : 30px;">
+
+
+    <center>
+        {% if company is none and region is none and category is none and position is none %}
+        <h5 style="color:#473198">RECENTLY ADDED JOBS</h5>
+        <h2 style="color:#473198">Featured Jobs Posts For This Week</h2>
+        {% else %}
+        <h2 style="color:#473198">HERE ARE YOUR RESULTS:</h2>
+        {% endif %}
+    
+        <div style="margin:10px; padding: 30px; width:90%; min-height:650px;">
+
+            <div class="row mb-5">
+
+                {% for offer in offers  %}
+                
+                <div class="col-md-6 col-lg-3 mb-2">
+                      <div class="card h-100">
+                        <img class="card-img-top" src="{{ url_for('views.serve_picture', filename=offer.recruiter.picture ) }}" height="170px" alt="Card image cap" />
+                        <div class="card-body">
+                          <h5 class="card-title">{{ offer.title }}</h5>
+                          <p class="card-text">
+                            {{ offer.description }}
+                          </p>
+                          <p class="card-text">
+                            {{ offer.region }}
+                          </p>
+                          <a href="/candidate-offer-profile/{{ offer.id }}" class="btn btn-outline-success">Read More</a>
+                          <a href="/apply-offer/{{ offer.id }}" class="btn btn-outline-info">Apply</a>
+
+                        </div>
+                      </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>   
+            
+            
+        </div>
+
+    </center>
+
+</div>
+
+
+{% endblock %}

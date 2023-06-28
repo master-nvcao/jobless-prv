@@ -1,0 +1,241 @@
+{% extends "home_recruiter.html" %}
+
+{% block head %}
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  dataassets-path="{{ url_for('static' , filename='assets/') }}"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>Accept / Refuse Candidate </title>
+
+    <meta name="description" content="" />
+
+   
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/vendor/fonts/boxicons.css') }}" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/css/demo.css') }}" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/vendor/libs/apex-charts/apex-charts.css') }}" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="{{ url_for('static' , filename='assets/vendor/js/helpers.js') }}"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="{{ url_for('static' , filename='assets/js/config.js') }}"></script>
+
+    <style>
+        
+    </style>
+
+  </head>
+  
+{% endblock %}
+
+{% block active %}
+      <div class="collapse navbar-collapse" id="navbar-ex-3">
+        <div class="navbar-nav me-auto">
+          <a class="nav-item nav-link" href="/home">Home</a>
+            <a class="nav-item nav-link " href="/add-offer">Add Offer </a>
+            <a class="nav-item nav-link" href="/offers-history">My Offers History</a>
+            <a class="nav-item nav-link" href="/accept-refuse-offers">A/R Application</a>
+        </div>
+{% endblock %}
+
+
+{% block content  %}
+
+<div style="border : 1px solid #473198; width:100%; height:auto; min-height:900px; background-color:#E3F3CD; padding : 30px;">
+    
+
+    <center>
+    <!-- <h3 style="color:#473198; top:5%;">Profile Details </h3><br> -->
+    
+    <div style="width:96%;">
+
+        <div class="card mb-4">
+            <h5 class="card-header"></h5>
+            <!-- Account -->
+            
+            
+            <div class="card-body">
+                
+                <center>
+                    
+                    <h3 style="color:#473198;">{{ offer.title }}</h3><br>
+                    <p><h5 style="color:#473198;">Description : </h5>{{ offer.description }} </p>
+                    <p ><h5 style="color:#473198;">Position :  </h5>{{ offer.position }}</p>
+                    <p><h5 style="color:#473198;">Salary : </h5> {{ offer.salary }}</p>
+                    <p><h5 style="color:#473198;">Date Creation : </h5> {{ offer.dateCreation }}</p>
+                    <p><h5 style="color:#473198;">Date Of Expiration : </h5> {{ offer.dateEnd }}</p>
+                    <p><h5 style="color:#473198;">Speciality : </h5> {{ offer.speciality }}</p>
+                    <p><h5 style="color:#473198;">Region : </h5> {{ offer.region }}</p>
+                    <p><h5 style="color:#473198;">Category : </h5> {{ offer.speciality }}</p>
+                    <br><br>
+                    <h4 style="color:#473198;">Candidates : </h4>
+                    <br>
+
+                    
+
+                    <div class="card" style="width:95%;">
+                        <div class="table-responsive text-nowrap">
+
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <!-- <th>Email</th> -->
+                                <th> Address </th>
+                                <th> Date of Application </th>
+                                <th> Stats </th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                                {% for application in offer.applications %}
+
+                                {% if application.status == 'Refused' %}
+                                    <tr>
+                                        <td>
+                                            <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>{{ application.candidate.first_name + " "+ application.candidate.last_name  }}</strong>
+                                        </td>
+                
+                                        <!-- <td>{{ application.candidate.email  }}</td> --> 
+                
+                                        <td>
+                                            {{ application.candidate.address }}
+                                        </td>
+                
+                                        <td> {{ application.dateApply }} </td>
+
+                                        <td><span class="badge bg-danger me-1">Refused</span></td>
+                
+                                        <td>
+                                            <a href="#" class="btn rounded-pill btn-outline-info" style="visibility:hidden;">Accept</a>
+                                            <a href="/candidate-profile/{{ application.candidate_id }}" class="btn rounded-pill btn-outline-success" target="_blank" >View</a>
+                                            <a href="#" class="btn rounded-pill btn-outline-danger" style="visibility:hidden;">Refused</a>
+
+                                        </td>
+                
+                                    </tr>
+
+                                {% elif application.status == 'Pending' %}
+
+                                    <tr>
+                                        <td>
+                                            <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>{{ application.candidate.first_name + " "+ application.candidate.last_name  }}</strong>
+                                        </td>
+                
+                                        <!-- <td>{{ application.candidate.email  }}</td> -->
+                
+                                        <td>
+                                            {{ application.candidate.address }}
+                                        </td>
+                
+                                        <td> {{ application.dateApply }} </td>
+
+                                        <td><span class="badge bg-warning me-1">Pending</span></td>
+                
+                                        <td>
+                                            <a href="/accept-candidate/{{ offer.id }}/{{application.candidate_id}}" class="btn rounded-pill btn-outline-info">Accept</a>
+                                            <a href="/candidate-profile/{{ application.candidate_id }}" class="btn rounded-pill btn-outline-success" target="_blank" >View</a>
+                                            <a href="/refuse-candidate/{{ offer.id }}/{{application.candidate_id}}" class="btn rounded-pill btn-outline-danger">Refuse</a>
+
+                                        </td>
+                
+                                    </tr>
+                                
+                                {%  elif application.status == 'Accepted' %}
+                                
+    
+                                    <tr>
+                                        <td>
+                                            <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>{{ application.candidate.first_name + " "+ application.candidate.last_name  }}</strong>
+                                        </td>
+                
+                                        <!-- <td>{{ application.candidate.email  }}</td> -->
+                
+                                        <td>
+                                            {{ application.candidate.address }}
+                                        </td>
+                
+                                        <td> {{ application.dateApply }} </td>
+
+                                        <td><span class="badge bg-info me-1">Accepted</span></td>
+                
+                                        <td>
+                                            <a href="#" class="btn rounded-pill btn-outline-info" style="visibility:hidden;">Accept</a>
+                                            <a href="/candidate-profile/{{ application.candidate_id }}" class="btn rounded-pill btn-outline-success" target="_blank" >View</a>
+                                            <a href="#" class="btn rounded-pill btn-outline-danger" style="visibility:hidden;">Refused</a>
+
+                                        </td>
+                
+                                    </tr>
+                                
+                                {% endif %}
+    
+                            {% endfor %}
+    
+    
+    
+    
+                            </tbody>
+    
+    
+                        </table>
+
+                        
+                    </div>
+                    
+                    </div>
+
+                    <br><br>
+                </center>
+                
+              
+            </div>
+
+            <!-- /Account -->
+          </div>
+          
+
+          
+
+
+          </div>
+
+      
+    </center>
+
+
+</div>
+
+{% endblock %}
+
