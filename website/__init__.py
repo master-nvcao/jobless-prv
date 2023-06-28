@@ -54,6 +54,8 @@ def create_app():
     #insert_Candidates(app=app, db=db, upload_image=p, upload_resume=r)
     #insert_Recruiters(app=app, db=db, upload_image=p)
     #insert_Offers(app=app, db=db)
+    # this project project was made by the nvcao also called behilil yassine 
+
     
 
     return app

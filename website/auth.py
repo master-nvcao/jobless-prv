@@ -206,6 +206,7 @@ def recruiter_register():
 
     return redirect('/register')
 
+# this project project was made by the nvcao also called behilil yassine 
 
 
 @auth.route('/forgotpassword',  methods=['GET', 'POST'])

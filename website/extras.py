@@ -189,4 +189,4 @@ def insert_Offers(app, db):
 
         db.session.commit()
 
-
+# this project project was made by the nvcao also called behilil yassine 
