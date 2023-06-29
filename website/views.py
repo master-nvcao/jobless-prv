@@ -465,6 +465,8 @@ def offers_history():
 
             offer = Offer.query.filter_by(id=id).first()
 
+            print("\n\n\n Date today : "+str(date.today())+"\nDate end : "+str(dateend)+"\n title : "+str(title)+"\n\n\n")
+
             offer.title = title
             offer.description = description 
             offer.speciality = speciality
