@@ -8,7 +8,7 @@ def scheduled_tasks():
     scheduler = BlockingScheduler()
 
     # Schedule the task to run every day at 9:00 PM (server time)
-    scheduler.add_job(update_finished_offers, 'cron', hour=00, args=[create_app(), db])
+    scheduler.add_job(update_finished_offers, 'cron', hour=2, args=[create_app(), db])
 
     # You can add more tasks and schedules here
 

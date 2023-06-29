@@ -60,6 +60,7 @@ def update_finished_offers(app, db):
         offers = Offer.query.all()
         for offer in offers:
                 if date.today() > offer.dateEnd:
+                    print("\n offer with id : "+str(offer.id)+"  has finished \n\n")
                     offer.status = 'finished'
                     for application in offer.applications:
                         if application.status == 'Pending':
