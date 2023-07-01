@@ -33,7 +33,7 @@ def login():
             if candidate.password == password:
                 if candidate.status == 'active':
                     flash('Welcome Back '+candidate.first_name+" "+candidate.last_name, category='success')
-                    login_user(candidate, remember=True)
+                    login_user(candidate, remember=False)
                     return redirect(url_for('views.home_candidate'))
                 else:
                     flash('Your account have been already deleted',category='error')
@@ -44,7 +44,7 @@ def login():
             if recruiter.password == password:
                 if recruiter.status == 'active':
                     flash('Welcome Back '+recruiter.first_name+" "+recruiter.last_name, category='success')
-                    login_user(recruiter, remember=True)
+                    login_user(recruiter, remember=False)
                     
                     return redirect(url_for('views.home_recruiter'))
                 else:
@@ -133,7 +133,7 @@ def candidate_register():
             db.session.commit()
 
             flash('Account successfully created', category='success')
-            login_user(candidate, remember=True)
+            login_user(candidate, remember=False)
 
             return redirect(url_for('views.home_candidate'))
 
@@ -199,7 +199,7 @@ def recruiter_register():
             db.session.commit()
 
             flash('Account successfully created', category='success')
-            login_user(recruiter, remember=True)
+            login_user(recruiter, remember=False)
             return redirect(url_for('views.home_recruiter'))
 
 
