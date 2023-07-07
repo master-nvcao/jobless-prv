@@ -4,12 +4,11 @@ from email.message import EmailMessage
 import secrets
 import string
 import uuid
-from website.models import Offer, Candidate, Application, Recruiter
+from .models import Offer, Candidate, Application, Recruiter
 from datetime import datetime, date
 from flask import current_app
 import os 
 from datetime import date, datetime
-
 
 def sendMail(receiver, subject, message):
     sender_email = "pfaproject77@gmail.com"
@@ -60,7 +59,6 @@ def update_finished_offers(app, db):
         offers = Offer.query.all()
         for offer in offers:
                 if date.today() > offer.dateEnd:
-                    print("\n offer with id : "+str(offer.id)+"  has finished \n\n")
                     offer.status = 'finished'
                     for application in offer.applications:
                         if application.status == 'Pending':
@@ -191,4 +189,4 @@ def insert_Offers(app, db):
 
         db.session.commit()
 
-# this project project was made by the nvcao also called behilil yassine 
+

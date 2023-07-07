@@ -9,6 +9,8 @@ from .extras import is_float, sendMail, limit_string, is_offer_in_array
 from PIL import Image
 from datetime import datetime, date
 import re 
+from flask_bcrypt import generate_password_hash, check_password_hash
+
 
 
 views = Blueprint('views', __name__ )
@@ -249,7 +251,9 @@ def profile_candidate():
         candidate.address = address 
         candidate.phone = phone 
         candidate.email = email 
-        candidate.password = password 
+        if not check_password_hash(candidate.password, password):
+            candidate.password = generate_password_hash(password)
+
         candidate.diploma = diploma 
         candidate.speciality = speciality
 
@@ -292,9 +296,9 @@ def deactivate_candidate():
         candidate.status = 'not active'
         db.session.commit()
 
-        return redirect('/login')
+        return redirect('/logout')
 
-    return redirect('/login')
+    return redirect('/logout')
 
 
 @views.route('/profile-recruiter', methods=['GET', 'POST'])
@@ -322,7 +326,8 @@ def profile_recruiter():
         recruiter.address = address 
         recruiter.phone = phone 
         recruiter.email = email 
-        recruiter.password = password 
+        if not check_password_hash(recruiter.password, password):
+            recruiter.password = generate_password_hash(password)
         recruiter.company = company 
 
         if picture:
@@ -363,9 +368,9 @@ def deactivate_recruiter():
 
         db.session.commit()
 
-        return redirect('/login')
+        return redirect('/logout')
 
-    return redirect('/login')
+    return redirect('/logout')
 
 
 @views.route('/add-offer', methods=['GET', 'POST'])
@@ -384,7 +389,6 @@ def add_offer():
         category = request.form.get('category')
         region = request.form.get('region').lower()
         
-
         if not is_float(salary):
             flash('The salary must be a numeric value', category='error')
             return redirect('/add-offer')
@@ -464,8 +468,6 @@ def offers_history():
             salary = float(salary)
 
             offer = Offer.query.filter_by(id=id).first()
-
-            print("\n\n\n Date today : "+str(date.today())+"\nDate end : "+str(dateend)+"\n title : "+str(title)+"\n\n\n")
 
             offer.title = title
             offer.description = description 

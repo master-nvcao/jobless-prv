@@ -2,11 +2,12 @@ import os
 import uuid
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import Candidate, Recruiter
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask_bcrypt import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 from .extras import sendMail,generate_password
 from PIL import Image 
+
 
 
 auth = Blueprint('auth', __name__ )
@@ -30,10 +31,10 @@ def login():
         
 
         if candidate:
-            if candidate.password == password:
+            if check_password_hash(candidate.password, password):
                 if candidate.status == 'active':
                     flash('Welcome Back '+candidate.first_name+" "+candidate.last_name, category='success')
-                    login_user(candidate, remember=False)
+                    login_user(candidate, remember=True)
                     return redirect(url_for('views.home_candidate'))
                 else:
                     flash('Your account have been already deleted',category='error')
@@ -41,10 +42,10 @@ def login():
                 flash('Incorrect password. Try again', category='error')
         
         elif recruiter:
-            if recruiter.password == password:
+            if check_password_hash(recruiter.password, password):
                 if recruiter.status == 'active':
                     flash('Welcome Back '+recruiter.first_name+" "+recruiter.last_name, category='success')
-                    login_user(recruiter, remember=False)
+                    login_user(recruiter, remember=True)
                     
                     return redirect(url_for('views.home_recruiter'))
                 else:
@@ -127,13 +128,13 @@ def candidate_register():
                 resized_image.save(os.path.join(upload_image, picturename))
                 #picture.save(os.path.join(upload_image, picturename))
 
-            candidate = Candidate(first_name=first_name, last_name=last_name, address=address, phone=phone, email=email, password=password, diploma=diploma, speciality=speciality, resume=resumename,picture=picturename, status='active')
+            candidate = Candidate(first_name=first_name, last_name=last_name, address=address, phone=phone, email=email, password=generate_password_hash(password), diploma=diploma, speciality=speciality, resume=resumename,picture=picturename, status='active')
 
             db.session.add(candidate)
             db.session.commit()
 
             flash('Account successfully created', category='success')
-            login_user(candidate, remember=False)
+            login_user(candidate, remember=True)
 
             return redirect(url_for('views.home_candidate'))
 
@@ -194,19 +195,18 @@ def recruiter_register():
 
                 #picture.save(os.path.join(upload_image, picturename))
 
-            recruiter = Recruiter(first_name=first_name, last_name=last_name, address=address, phone=phone, email=email, password=password, company=company, picture=picturename, status='active')
+            recruiter = Recruiter(first_name=first_name, last_name=last_name, address=address, phone=phone, email=email, password=generate_password_hash(password), company=company, picture=picturename, status='active')
             db.session.add(recruiter)
             db.session.commit()
 
             flash('Account successfully created', category='success')
-            login_user(recruiter, remember=False)
+            login_user(recruiter, remember=True)
             return redirect(url_for('views.home_recruiter'))
 
 
 
     return redirect('/register')
 
-# this project project was made by the nvcao also called behilil yassine 
 
 
 @auth.route('/forgotpassword',  methods=['GET', 'POST'])
@@ -214,7 +214,7 @@ def forgotpassword():
 
     if current_user.is_authenticated:
         return redirect('/home')
-        
+
     if request.method == 'POST':
         email = request.form.get('email')
         candidate = Candidate.query.filter_by(email=email).first()
