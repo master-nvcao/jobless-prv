@@ -251,8 +251,7 @@ def profile_candidate():
         candidate.address = address 
         candidate.phone = phone 
         candidate.email = email 
-        if not check_password_hash(candidate.password, password):
-            candidate.password = generate_password_hash(password)
+        candidate.password = password
 
         candidate.diploma = diploma 
         candidate.speciality = speciality
@@ -326,8 +325,7 @@ def profile_recruiter():
         recruiter.address = address 
         recruiter.phone = phone 
         recruiter.email = email 
-        if not check_password_hash(recruiter.password, password):
-            recruiter.password = generate_password_hash(password)
+        recruiter.password = password
         recruiter.company = company 
 
         if picture:

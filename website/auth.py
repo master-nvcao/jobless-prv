@@ -31,7 +31,7 @@ def login():
         
 
         if candidate:
-            if check_password_hash(candidate.password, password):
+            if candidate.password == password:
                 if candidate.status == 'active':
                     flash('Welcome Back '+candidate.first_name+" "+candidate.last_name, category='success')
                     login_user(candidate, remember=True)
@@ -42,7 +42,7 @@ def login():
                 flash('Incorrect password. Try again', category='error')
         
         elif recruiter:
-            if check_password_hash(recruiter.password, password):
+            if recruiter.password == password:
                 if recruiter.status == 'active':
                     flash('Welcome Back '+recruiter.first_name+" "+recruiter.last_name, category='success')
                     login_user(recruiter, remember=True)
@@ -128,7 +128,7 @@ def candidate_register():
                 resized_image.save(os.path.join(upload_image, picturename))
                 #picture.save(os.path.join(upload_image, picturename))
 
-            candidate = Candidate(first_name=first_name, last_name=last_name, address=address, phone=phone, email=email, password=generate_password_hash(password), diploma=diploma, speciality=speciality, resume=resumename,picture=picturename, status='active')
+            candidate = Candidate(first_name=first_name, last_name=last_name, address=address, phone=phone, email=email, password=password, diploma=diploma, speciality=speciality, resume=resumename,picture=picturename, status='active')
 
             db.session.add(candidate)
             db.session.commit()
@@ -195,7 +195,7 @@ def recruiter_register():
 
                 #picture.save(os.path.join(upload_image, picturename))
 
-            recruiter = Recruiter(first_name=first_name, last_name=last_name, address=address, phone=phone, email=email, password=generate_password_hash(password), company=company, picture=picturename, status='active')
+            recruiter = Recruiter(first_name=first_name, last_name=last_name, address=address, phone=phone, email=email, password=password, company=company, picture=picturename, status='active')
             db.session.add(recruiter)
             db.session.commit()
 
